@@ -141,7 +141,25 @@ export default class SegmentLoader extends videojs.EventTarget {
     this.mimeType_ = null;
     this.sourceUpdater_ = null;
     this.xhrOptions_ = null;
+
+
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
+
     this.segmentLoadRepeatTimeMap = null;
+
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
 
     // Fragmented mp4 playback
     this.activeInitSegmentId_ = null;
@@ -273,7 +291,24 @@ export default class SegmentLoader extends videojs.EventTarget {
 
     this.playlist_ = newPlaylist;
     this.xhrOptions_ = options;
+
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
+
     this.segmentLoadRepeatTimeMap = {};
+
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
 
     // when we haven't started playing yet, the start of a live playlist
     // is always our zero-time so force a sync update each time the playlist
@@ -732,12 +767,29 @@ export default class SegmentLoader extends videojs.EventTarget {
     }
     this.pendingSegment_ = segmentInfo;
 
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
+
     let segmentUri = segmentInfo.resolvedUri || segmentInfo.uri;
     let segmentTimeoutOption = {
         timeout: this.xhrOptions_.timeout * Math.pow(2, this.segmentLoadRepeatTimeMap[segmentUri] || 0)
     };
 
     let segmentRequestOptions = videojs.mergeOptions(this.xhrOptions_, segmentTimeoutOption, {
+
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
+
       uri: segmentInfo.uri,
       responseType: 'arraybuffer',
       headers: segmentXhrHeaders(segment)
@@ -748,7 +800,23 @@ export default class SegmentLoader extends videojs.EventTarget {
       this.trigger(event);
     });
 
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
+
     this.segmentLoadRepeatTimeMap[segmentUri] = (this.segmentLoadRepeatTimeMap[segmentUri] || 0) + 1;
+
+    /////////////////////////////////////
+    //  ____                           //
+    // | __ )  _____      _____ _ __   //
+    // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+    // | |_) | (_) \ V  V /  __/ | | | //
+    // |____/ \___/ \_/\_/ \___|_| |_| //
+    /////////////////////////////////////
 
     this.xhr_ = {
       keyXhr,
@@ -807,9 +875,27 @@ export default class SegmentLoader extends videojs.EventTarget {
       this.roundTrip = NaN;
       this.state = 'READY';
       return this.trigger('progress');
+
+   /////////////////////////////////////
+   //  ____                           //
+   // | __ )  _____      _____ _ __   //
+   // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+   // | |_) | (_) \ V  V /  __/ | | | //
+   // |____/ \___/ \_/\_/ \___|_| |_| //
+   /////////////////////////////////////
+
     } else  {
       if(this.xhr_.segmentXhr.url)
-        this.segmentLoadRepeatTimeMap[this.xhr_.segmentXhr.url] = 0;
+        delete this.segmentLoadRepeatTimeMap[this.xhr_.segmentXhr.url];
+
+   /////////////////////////////////////
+   //  ____                           //
+   // | __ )  _____      _____ _ __   //
+   // |  _ \ / _ \ \ /\ / / _ \ '_ \  //
+   // | |_) | (_) \ V  V /  __/ | | | //
+   // |____/ \___/ \_/\_/ \___|_| |_| //
+   /////////////////////////////////////
+
     }
 
     // trigger an event for other errors
